@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Order;
+
 class CrudUserController extends Controller
 {
     public function index()
@@ -102,6 +104,19 @@ class CrudUserController extends Controller
 
         return redirect("list")->withSuccess('You have signed-in');
     }
+
+
+    public function orders($id)
+{
+    // Lấy thông tin người dùng
+    $user = User::findOrFail($id);
+
+    // Lấy danh sách các đơn hàng của người dùng này
+    $orders = $user->orders; // Kiểm tra mối quan hệ đúng chưa
+
+    // Trả về view và truyền dữ liệu người dùng, đơn hàng
+    return view('crud_user.orders', compact('user', 'orders'));
+}
 
     public function listUser()
     {
