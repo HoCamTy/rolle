@@ -36,7 +36,14 @@ Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
 
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 Route::get('/users/role/{role}', [RoleController::class, 'showByRole'])->name('user.roleList');
+// Route user orders
 
-Route::get('/user/{id}/orders', [UserController::class, 'orders'])->name('user.orders');
-Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
-Route::get('/users/oder/{oder}', [RoleController::class, 'showByRole'])->name('user.oderList');
+
+
+
+// Định nghĩa route hiển thị đơn hàng của người dùng
+Route::get('/user/{id}/orders', [CrudUserController::class, 'orders'])->name('user.orders');
+
+
+
+

@@ -1,35 +1,34 @@
 @extends('dashboard')
 
 @section('content')
-    <div class="container mt-4">
-        <h2>Chi tiết đơn hàng của: {{ $user->name }}</h2>
-        @if($orders->count() > 0)
+    <div class="container">
+        <h2>Danh Sách Đơn Hàng của {{ $user->name }}</h2>
+
+        <!-- Nếu không có đơn hàng, hiển thị thông báo -->
+        @if($orders->isEmpty())
+            <p>Không có đơn hàng nào.</p>
+        @else
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Mã đơn hàng</th>
-                        <th>Danh sách sản phẩm</th>
-                        <th>Ngày tạo</th>
+                        <th>Mã Đơn Hàng</th>
+                        <th>Chi Tiết Đơn Hàng</th>
+                        <th>Ngày Đặt</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($orders as $order)
                         <tr>
-                            <td>{{ $order->id }}</td>
-                            <td>
-                                <ul>
-                                    @foreach($order->products as $product)
-                                        <li>{{ $product->name }} (Mã: {{ $product->id }})</li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                            <td>{{ $order->created_at }}</td>
+                            <td>{{ $order->order_code ?? 'Không có mã đơn hàng' }}</td>
+                            <td>{{ $order->order_details ?? 'Không có chi tiết đơn hàng' }}</td>
+                            <td>{{ $order->created_at->format('d-m-Y H:i') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
+                
             </table>
-        @else
-            <p>Người dùng này chưa có đơn hàng nào.</p>
         @endif
+
+        <a href="{{ route('user.list') }}">Quay lại danh sách người dùng</a>
     </div>
 @endsection
